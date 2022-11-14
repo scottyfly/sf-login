@@ -1,0 +1,50 @@
+@import url(//db.onlinewebfonts.com/c/0a934edf64cd17e4281d68d442f149be?family=ObjektivMk2W03-Bold);
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap");
+
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  input {
+    width: 20rem;
+    height: 2rem;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .emailInput {
+    background: url(../public/user-icon.png) no-repeat scroll 4px 2px;
+    background-size: 23px;
+    padding-left: 2.3rem;
+  }
+
+  .passwordInput {
+    background: url(../public/password-icon.png) no-repeat scroll 4px 3px;
+    padding-left: 2.3rem;
+    background-size: 20px;
+  }
+}
+
+.title {
+  font-family: "ObjektivMk2W03-Bold";
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
