@@ -26,6 +26,10 @@ const Home = () => {
     setPassword(e.target.value)
   }
 
+  useEffect(() => {
+    console.log("test")
+  }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
