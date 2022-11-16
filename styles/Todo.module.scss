@@ -22,3 +22,19 @@
   border: solid black 4px;
   border-radius: 1rem;
 }
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.inputContainer {
+  display: flex;
+}
+
+.listItem {
+  display: flex;
+  gap: 1rem;
+}
