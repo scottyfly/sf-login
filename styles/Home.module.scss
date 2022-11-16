@@ -27,7 +27,6 @@
     height: 2rem;
     font-weight: 400;
     font-size: 1.3rem;
-    margin-bottom: 1rem;
   }
 
   .emailInput {
@@ -41,10 +40,23 @@
     padding-left: 2.3rem;
     background-size: 20px;
   }
+
+  .passwordInputError {
+    background: url(../public/password-icon.png) no-repeat scroll 4px 3px;
+    padding-left: 2.3rem;
+    background-size: 20px;
+    border: solid 2px #ca0606;
+  }
 }
 
 .title {
   font-family: "ObjektivMk2W03-Bold";
   font-size: 3rem;
   margin-bottom: 2rem;
+}
+
+.error {
+  font-size: 0.9rem;
+  color: #ca0606;
+  margin-bottom: 1rem;
 }

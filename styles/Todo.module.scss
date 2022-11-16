@@ -1,0 +1,24 @@
+@import url(//db.onlinewebfonts.com/c/0a934edf64cd17e4281d68d442f149be?family=ObjektivMk2W03-Bold);
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap");
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem;
+}
+
+.title {
+  font-family: "ObjektivMk2W03-Bold";
+  font-weight: 500;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.container {
+  width: 35vw;
+  height: 60vh;
+  border: solid black 4px;
+  border-radius: 1rem;
+}
