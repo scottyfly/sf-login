@@ -1,41 +1,67 @@
-import React, { useState, KeyboardEvent, ChangeEvent } from "react"
+import React, {
+  useState,
+  KeyboardEvent,
+  ChangeEvent,
+  useCallback,
+  useEffect,
+} from "react"
 import styles from "../styles/Todo.module.scss"
+import Entry from "./components/Entry"
+import { useRouter } from "next/router"
+import { join } from "path"
+
+const useForceUpdate = () => {
+  const [value, setValue] = useState(0) // integer state
+  return () => setValue((value) => value + 1) // update state to force render
+  // An function that increment 👆🏻 the previous state like here
+  // is better than directly setting `value + 1`
+}
 
 const Todo = () => {
   const [todoList, setTodoList] = useState<string[]>([])
   const [todo, setTodo] = useState<string>("")
   const [searchResults, setSearchResults] = useState<string[]>()
   const [showSearch, setShowSearch] = useState(false)
-  //   const [search, setSearch] = useState<string>("")
 
-  const saveHandler = () => {
+  const router = useRouter()
+
+  const forceUpdate = useForceUpdate()
+
+  //   const refresh = () => {
+  //     forceUpdate()
+  //   }
+
+  useEffect(() => {
+    const storage = localStorage.getItem("todoList")
+    if (storage) {
+      const storedList = JSON.parse(storage)
+      console.log("storedList", storedList)
+      setTodoList(storedList)
+    }
+  }, [])
+
+  const saveHandler = useCallback(() => {
     if (todo.length < 1) {
       return alert("Please enter at least one character")
     }
     setTodoList((prev) => [todo, ...prev])
     setTodo("")
-  }
+  }, [todo])
 
-  const enterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setTodoList((prev) => [todo, ...prev])
-      setTodo("")
-    }
-  }
+  const enterPressHandler = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        if (todo.length < 1) return
+        setTodoList((prev) => [todo, ...prev])
+        setTodo("")
+      }
+    },
+    [todo]
+  )
 
-  //   const deleteItem = (deletedItem: string) => {
-  //     setTodoList((prev) => {
-  //       const newList = prev.filter((item) => item !== deletedItem)
-  //       return newList
-  //     })
-  //   }
-
-  const deleteItem = (deleteItem: string) => {
-    setTodoList((prev) => {
-      const newList = prev.filter((item) => item !== deleteItem)
-      return newList
-    })
-  }
+  useEffect(() => {
+    console.log("todo", todo)
+  }, [todo])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value
@@ -51,12 +77,25 @@ const Todo = () => {
     }
   }
 
-  // TODO add edit
-  // TODO save todoList to localstorage
-  // TODO add logout
+  const updateTodoList = (items: string[]) => {
+    setTodoList(items)
+  }
+
+  useEffect(() => {
+    if (todoList && todoList.length > 0) {
+      localStorage.setItem("todoList", JSON.stringify(todoList))
+    }
+  }, [todoList])
+
+  const handleLogout = () => {
+    router.push("/")
+  }
 
   return (
     <div className={styles.main}>
+      <div className={styles.logout} onClick={handleLogout}>
+        Logout
+      </div>
       <div className={styles.title}>My To-Do List</div>
       <div className={styles.container}>
         <div className={styles.innerContainer}>
@@ -82,23 +121,33 @@ const Todo = () => {
             />
             <button onClick={saveHandler}>Save</button>
           </div>
-          {!showSearch &&
-            todoList.map((item, index) => (
-              <div className={styles.listItem} key={index}>
-                <div>{item}</div>
-                <button>Edit</button>
-                <button onClick={() => deleteItem(item)}>Delete</button>
-              </div>
-            ))}
-          {showSearch &&
-            searchResults &&
-            searchResults.map((item, index) => (
-              <div className={styles.listItem} key={index}>
-                <div>{item}</div>
-                <button>Edit</button>
-                <button onClick={() => deleteItem(item)}>Delete</button>
-              </div>
-            ))}
+          <div className={styles.listContainer}>
+            {!showSearch &&
+              todoList.map((item, index) => (
+                <Entry
+                  key={index}
+                  item={item}
+                  index={index}
+                  todoList={todoList}
+                  setTodoList={setTodoList}
+                  updateTodoList={updateTodoList}
+                  forceUpdate={forceUpdate}
+                />
+              ))}
+            {showSearch &&
+              searchResults &&
+              searchResults.map((item, index) => (
+                <Entry
+                  key={index}
+                  item={item}
+                  index={index}
+                  todoList={todoList}
+                  setTodoList={setTodoList}
+                  updateTodoList={updateTodoList}
+                  forceUpdate={forceUpdate}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>
