@@ -99,6 +99,13 @@ const Todo = () => {
     }
   }, [showNew])
 
+  const leaveEntryHandler = (
+    e: React.FocusEvent<HTMLInputElement, Element>
+  ) => {
+    e.stopPropagation()
+    setShowNew(false)
+  }
+
   return (
     <div className={styles.main}>
       <div className={styles.logoutContainer}>
@@ -130,7 +137,7 @@ const Todo = () => {
                 ref={newTodoRef}
                 onChange={(e) => setTodo(e.target.value)}
                 onKeyDown={(e) => enterPressHandler(e)}
-                onBlur={() => setShowNew(false)}
+                onBlur={(e) => leaveEntryHandler(e)}
                 tabIndex={0}
                 id="todo"
                 name="todo"
@@ -139,7 +146,8 @@ const Todo = () => {
                 maxLength={25}
                 className={styles.newInput}
               />
-              <button className={styles.saveBtn} onClick={saveHandler}>
+              {/* onMouseDown has priority over onblur */}
+              <button className={styles.saveBtn} onMouseDown={saveHandler}>
                 Save
               </button>
             </div>
