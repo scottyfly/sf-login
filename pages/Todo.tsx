@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from "react"
 import styles from "../styles/Todo.module.scss"
-import Entry from "./components/Entry"
+import Entry from "../components/Entry"
 import { useRouter } from "next/router"
 import { join } from "path"
 

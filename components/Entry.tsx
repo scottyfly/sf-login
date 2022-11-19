@@ -8,10 +8,10 @@ import React, {
   useEffect,
   useState,
 } from "react"
-import styles from "../../styles/Todo.module.scss"
+import styles from "../styles/Todo.module.scss"
 import Image from "next/image"
-import editIcon from "../../public/edit-icon.png"
-import deleteIcon from "../../public/delete-icon.png"
+import editIcon from "../public/edit-icon.png"
+import deleteIcon from "../public/delete-icon.png"
 
 interface EntryProps {
   item: string
