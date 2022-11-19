@@ -6,6 +6,8 @@ import React, {
   useCallback,
   useEffect,
   useState,
+  useRef,
+  LegacyRef,
 } from "react"
 import styles from "../styles/Todo.module.scss"
 import Image from "next/image"
@@ -76,22 +78,41 @@ const Entry: FC<EntryProps> = ({
     })
   }
 
+  const inputRef = useRef(null)
+
+  const openEditHandler = () => {
+    setShowEdit((prev) => !prev)
+  }
+
+  useEffect(() => {
+    if (showEdit) {
+      if (inputRef.current) {
+        inputRef.current.focus()
+      }
+    }
+  }, [showEdit])
+
   return (
     <div className={styles.listItem} key={index}>
       {!showEdit && <div>{item}</div>}
       {showEdit && (
         <div>
           <input
+            ref={inputRef}
             type="text"
+            id="editInput"
+            name="editInput"
             placeholder={item}
+            value={item}
             onChange={(e) => handleEdit(e)}
             onKeyDown={(e) => enterPressHandler(e)}
+            onBlur={() => setShowEdit(false)}
           />
           <button onClick={() => handleEnterEdit(index)}>Enter</button>
         </div>
       )}
       <div className={styles.listBtns}>
-        <button onClick={() => setShowEdit((prev) => !prev)}>
+        <button onClick={openEditHandler}>
           <Image src={editIcon} width={20} height={20} alt="edit icon" />
         </button>
         <button onClick={() => deleteItem(item)}>
