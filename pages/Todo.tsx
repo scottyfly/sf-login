@@ -48,6 +48,11 @@ const Todo = () => {
     setTodo("")
   }, [todo])
 
+  useEffect(() => {
+    console.log("todoList", todoList)
+    console.log("todo", todo)
+  }, [todo, todoList])
+
   const enterPressHandler = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {

@@ -33,8 +33,6 @@ const Entry: FC<EntryProps> = ({
 }) => {
   const [showEdit, setShowEdit] = useState(false)
   const [editedVal, setEditedVal] = useState("")
-  const [newArray, setNewArray] = useState<string[]>([])
-  // const [itemVal, setItemVal] = useState("")
 
   const handleEdit = (e: ChangeEvent<HTMLInputElement>) => {
     setEditedVal(e.target.value)
@@ -51,11 +49,12 @@ const Entry: FC<EntryProps> = ({
       e.stopPropagation()
       const listCopy = todoList
       listCopy.splice(index, 1, editedVal)
-      setNewArray(listCopy)
+      updateTodoList(listCopy)
+      localStorage.setItem("todoList", JSON.stringify(listCopy))
       setShowEdit(false)
       forceUpdate()
     },
-    [editedVal, forceUpdate, todoList]
+    [editedVal, forceUpdate, todoList, updateTodoList]
   )
 
   const enterPressHandler = useCallback(
@@ -64,20 +63,14 @@ const Entry: FC<EntryProps> = ({
         if (editedVal.length < 1) return
         const listCopy = todoList
         listCopy.splice(index, 1, editedVal)
-        setNewArray(listCopy)
+        updateTodoList(listCopy)
+        localStorage.setItem("todoList", JSON.stringify(listCopy))
         setShowEdit(false)
         forceUpdate()
       }
     },
-    [editedVal, forceUpdate, index, todoList]
+    [editedVal, forceUpdate, index, todoList, updateTodoList]
   )
-
-  useEffect(() => {
-    if (newArray && newArray.length > 0) {
-      updateTodoList(newArray)
-      localStorage.setItem("todoList", JSON.stringify(newArray))
-    }
-  }, [newArray, updateTodoList])
 
   const deleteItem = (deleteItem: string) => {
     setTodoList((prev) => {
