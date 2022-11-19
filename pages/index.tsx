@@ -145,7 +145,12 @@ const Home = () => {
             maxLength={16}
           />
           {passwordError && <div className={styles.error}>{passwordError}</div>}
-          <input disabled={disableSubmit} type="submit" value="Submit" />
+          <input
+            className={styles.submitBtn}
+            disabled={disableSubmit}
+            type="submit"
+            value="Login"
+          />
         </form>
         {loading && <div>Loading...</div>}
       </main>

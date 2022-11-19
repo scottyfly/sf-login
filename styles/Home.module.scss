@@ -60,3 +60,14 @@
   color: #ca0606;
   margin-bottom: 1rem;
 }
+
+.submitBtn {
+  margin: 2rem 0;
+  color: white;
+  background-color: #4c4cf8;
+  box-shadow: 2px 2px black;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
