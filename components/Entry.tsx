@@ -95,7 +95,6 @@ const Entry: FC<EntryProps> = ({
 
   const handleLeaveEdit = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     e.stopPropagation()
-    console.log("left")
     setShowEdit(false)
   }
 

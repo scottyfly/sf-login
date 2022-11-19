@@ -35,7 +35,6 @@ const Todo = () => {
     const storage = localStorage.getItem("todoList")
     if (storage) {
       const storedList = JSON.parse(storage)
-      console.log("storedList", storedList)
       setTodoList(storedList)
     }
   }, [])
@@ -47,11 +46,6 @@ const Todo = () => {
     setTodoList((prev) => [todo, ...prev])
     setTodo("")
   }, [todo])
-
-  useEffect(() => {
-    console.log("todoList", todoList)
-    console.log("todo", todo)
-  }, [todo, todoList])
 
   const enterPressHandler = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
