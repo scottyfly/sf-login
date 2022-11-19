@@ -18,9 +18,9 @@
 
 .container {
   width: 25rem;
-  height: 60vh;
   border: solid black 4px;
   border-radius: 1rem;
+  padding-bottom: 1rem;
 }
 
 .innerContainer {
@@ -31,6 +31,28 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.searchAndAddContainer {
+  width: 90%;
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    background: url(../public/search-icon.png) no-repeat scroll 4px 3px;
+    background-size: 23px;
+    border-radius: 1rem;
+    padding-left: 2rem;
+  }
+}
+
+.newBtn {
+  width: 5rem;
+  height: 2rem;
+  background-color: #4c4cf8;
+  color: white;
+  box-shadow: 2px 2px black;
 }
 
 .inputContainer {
@@ -59,4 +81,22 @@
     cursor: pointer;
     text-decoration-line: underline;
   }
+}
+
+.newInput {
+  height: 2.5rem;
+  font-family: "Noto Sans", sans-serif;
+  margin: 1rem 0.5rem;
+  border: solid 2px black;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.saveBtn {
+  height: 2.5rem;
+  width: 4rem;
+  margin: 1rem 0;
+  background-color: black;
+  color: white;
+  font-size: 1.2rem;
 }

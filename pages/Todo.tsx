@@ -4,6 +4,7 @@ import React, {
   ChangeEvent,
   useCallback,
   useEffect,
+  useRef,
 } from "react"
 import styles from "../styles/Todo.module.scss"
 import Entry from "../components/Entry"
@@ -21,10 +22,13 @@ const Todo = () => {
   const [todo, setTodo] = useState<string>("")
   const [searchResults, setSearchResults] = useState<string[]>()
   const [showSearch, setShowSearch] = useState(false)
+  const [showNew, setShowNew] = useState(false)
 
   const router = useRouter()
 
   const forceUpdate = useForceUpdate()
+
+  const newTodoRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const storage = localStorage.getItem("todoList")
@@ -82,6 +86,18 @@ const Todo = () => {
     router.push("/")
   }
 
+  const showNewHandler = () => {
+    setShowNew(true)
+  }
+
+  useEffect(() => {
+    if (showNew) {
+      if (newTodoRef.current) {
+        newTodoRef.current.focus()
+      }
+    }
+  }, [showNew])
+
   return (
     <div className={styles.main}>
       <div className={styles.logoutContainer}>
@@ -92,28 +108,41 @@ const Todo = () => {
       <div className={styles.title}>My To-Do List</div>
       <div className={styles.container}>
         <div className={styles.innerContainer}>
-          <label htmlFor="search">Search</label>
-          <input
-            onChange={searchHandler}
-            type="text"
-            id="search"
-            name="search"
-          />
-          <label htmlFor="todo">What do you want to do?</label>
-
-          <div className={styles.inputContainer}>
+          <div className={styles.searchAndAddContainer}>
             <input
-              onChange={(e) => setTodo(e.target.value)}
-              onKeyDown={(e) => enterPressHandler(e)}
-              tabIndex={0}
-              id="todo"
-              name="todo"
+              onChange={searchHandler}
               type="text"
-              value={todo}
-              maxLength={25}
+              id="search"
+              name="search"
+              placeholder="search"
+              onBlur={() => setShowSearch(false)}
             />
-            <button onClick={saveHandler}>Save</button>
+
+            <button onClick={showNewHandler} className={styles.newBtn}>
+              New
+            </button>
           </div>
+
+          {showNew && (
+            <div className={styles.inputContainer}>
+              <input
+                ref={newTodoRef}
+                onChange={(e) => setTodo(e.target.value)}
+                onKeyDown={(e) => enterPressHandler(e)}
+                onBlur={() => setShowNew(false)}
+                tabIndex={0}
+                id="todo"
+                name="todo"
+                type="text"
+                value={todo}
+                maxLength={25}
+                className={styles.newInput}
+              />
+              <button className={styles.saveBtn} onClick={saveHandler}>
+                Save
+              </button>
+            </div>
+          )}
           <div className={styles.listContainer}>
             {!showSearch &&
               todoList.map((item, index) => (

@@ -78,7 +78,7 @@ const Entry: FC<EntryProps> = ({
     })
   }
 
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const openEditHandler = () => {
     setShowEdit((prev) => !prev)
