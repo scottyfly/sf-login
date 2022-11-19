@@ -11,6 +11,7 @@ const Home = () => {
   const [successMsg, setSuccessMsg] = useState("")
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [loginError, setLoginError] = useState("")
 
   const router = useRouter()
 
@@ -29,6 +30,12 @@ const Home = () => {
         setDisableSubmit(false)
         setLoading(false)
         router.push("/Todo")
+      })
+      .catch((e) => {
+        console.log("Login failed", e)
+        setLoginError(
+          "The server could not be reached. Please try again later."
+        )
       })
   }
 
@@ -152,6 +159,7 @@ const Home = () => {
             value="Login"
           />
         </form>
+        {loginError && <div>{loginError}</div>}
         {loading && <div>Loading...</div>}
       </main>
     </div>
