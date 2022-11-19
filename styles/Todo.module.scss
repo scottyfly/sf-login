@@ -48,6 +48,12 @@
   border: solid black 2px;
 }
 
+.logoutContainer {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .logout {
   &:hover {
     cursor: pointer;

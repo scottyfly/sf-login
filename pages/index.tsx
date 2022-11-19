@@ -14,7 +14,6 @@ const Home = () => {
 
   const router = useRouter()
 
-  // TODO add onKeyDown function
   const sendData = () => {
     setDisableSubmit(true)
     setLoading(true)
@@ -31,7 +30,6 @@ const Home = () => {
         setLoading(false)
         router.push("/Todo")
       })
-    // .then(data => this.setState({ postId: data.id }));
   }
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +58,6 @@ const Home = () => {
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     const password = e.target.value
-    // TODO these need to be different
     if (password.length < 5) {
       setPasswordError("Password must be at least 4 characters")
       setDisableSubmit(true)

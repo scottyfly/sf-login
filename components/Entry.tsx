@@ -3,7 +3,6 @@ import React, {
   Dispatch,
   FC,
   KeyboardEvent,
-  SetStateAction,
   useCallback,
   useEffect,
   useState,
@@ -42,7 +41,6 @@ const Entry: FC<EntryProps> = ({
     (index: number) => {
       const listCopy = todoList
       listCopy.splice(index, 1, editedVal)
-      // updateTodoList(listCopy)
       setNewArray(listCopy)
       setShowEdit(false)
       forceUpdate()
@@ -69,13 +67,7 @@ const Entry: FC<EntryProps> = ({
       updateTodoList(newArray)
       localStorage.setItem("todoList", JSON.stringify(newArray))
     }
-    //   setTodoList(newArray)
   }, [newArray, updateTodoList])
-
-  useEffect(() => {
-    console.log("newArray", newArray)
-    console.log("todoList", todoList)
-  }, [newArray, todoList])
 
   const deleteItem = (deleteItem: string) => {
     setTodoList((prev) => {

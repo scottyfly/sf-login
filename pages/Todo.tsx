@@ -8,7 +8,6 @@ import React, {
 import styles from "../styles/Todo.module.scss"
 import Entry from "../components/Entry"
 import { useRouter } from "next/router"
-import { join } from "path"
 
 const useForceUpdate = () => {
   const [value, setValue] = useState(0) // integer state
@@ -26,10 +25,6 @@ const Todo = () => {
   const router = useRouter()
 
   const forceUpdate = useForceUpdate()
-
-  //   const refresh = () => {
-  //     forceUpdate()
-  //   }
 
   useEffect(() => {
     const storage = localStorage.getItem("todoList")
@@ -58,10 +53,6 @@ const Todo = () => {
     },
     [todo]
   )
-
-  useEffect(() => {
-    console.log("todo", todo)
-  }, [todo])
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value
@@ -93,8 +84,10 @@ const Todo = () => {
 
   return (
     <div className={styles.main}>
-      <div className={styles.logout} onClick={handleLogout}>
-        Logout
+      <div className={styles.logoutContainer}>
+        <div className={styles.logout} onClick={handleLogout}>
+          Logout
+        </div>
       </div>
       <div className={styles.title}>My To-Do List</div>
       <div className={styles.container}>
