@@ -9,13 +9,14 @@ import React, {
 import styles from "../styles/Todo.module.scss"
 import Entry from "../components/Entry"
 import { useRouter } from "next/router"
+import { useForceUpdate } from "../hooks/useForceUpdate.js"
 
-const useForceUpdate = () => {
-  const [value, setValue] = useState(0) // integer state
-  return () => setValue((value) => value + 1) // update state to force render
-  // An function that increment 👆🏻 the previous state like here
-  // is better than directly setting `value + 1`
-}
+// const useForceUpdate = () => {
+//   const [value, setValue] = useState(0) // integer state
+//   return () => setValue((value) => value + 1) // update state to force render
+//   // An function that increment 👆🏻 the previous state like here
+//   // is better than directly setting `value + 1`
+// }
 
 const Todo = () => {
   const [todoList, setTodoList] = useState<string[]>([])

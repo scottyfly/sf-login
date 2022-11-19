@@ -34,13 +34,21 @@ const Entry: FC<EntryProps> = ({
   const [showEdit, setShowEdit] = useState(false)
   const [editedVal, setEditedVal] = useState("")
   const [newArray, setNewArray] = useState<string[]>([])
+  // const [itemVal, setItemVal] = useState("")
 
   const handleEdit = (e: ChangeEvent<HTMLInputElement>) => {
     setEditedVal(e.target.value)
   }
 
+  useEffect(() => {
+    if (item) {
+      setEditedVal(item)
+    }
+  }, [item])
+
   const handleEnterEdit = useCallback(
-    (index: number) => {
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
+      e.stopPropagation()
       const listCopy = todoList
       listCopy.splice(index, 1, editedVal)
       setNewArray(listCopy)
@@ -92,6 +100,12 @@ const Entry: FC<EntryProps> = ({
     }
   }, [showEdit])
 
+  const handleLeaveEdit = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    e.stopPropagation()
+    console.log("left")
+    setShowEdit(false)
+  }
+
   return (
     <div className={styles.listItem} key={index}>
       {!showEdit && <div>{item}</div>}
@@ -103,12 +117,12 @@ const Entry: FC<EntryProps> = ({
             id="editInput"
             name="editInput"
             placeholder={item}
-            value={item}
+            value={editedVal}
             onChange={(e) => handleEdit(e)}
             onKeyDown={(e) => enterPressHandler(e)}
-            onBlur={() => setShowEdit(false)}
+            onBlur={(e) => handleLeaveEdit(e)}
           />
-          <button onClick={() => handleEnterEdit(index)}>Enter</button>
+          <button onMouseDown={(e) => handleEnterEdit(e, index)}>Enter</button>
         </div>
       )}
       <div className={styles.listBtns}>
