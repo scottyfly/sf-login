@@ -57,8 +57,9 @@ const Entry: FC<EntryProps> = ({
     [editedVal, forceUpdate, todoList, updateTodoList]
   )
 
+  // TODO try out using async instead of forceUpdate()
   const enterPressHandler = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
+    async (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
         if (editedVal.length < 1) return
         const listCopy = todoList
@@ -71,6 +72,8 @@ const Entry: FC<EntryProps> = ({
     },
     [editedVal, forceUpdate, index, todoList, updateTodoList]
   )
+
+  // enterPressHandler().then((response) => console.log(response))
 
   const deleteItem = (deleteItem: string) => {
     setTodoList((prev) => {

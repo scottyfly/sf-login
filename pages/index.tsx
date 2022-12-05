@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.scss"
 import { useRouter } from "next/router"
 
 const Home = () => {
+  // TODO use useReducer. Make new branch first
   const [email, setEmail] = useState<string>("")
   const [emailError, setEmailError] = useState("")
   const [password, setPassword] = useState("")
